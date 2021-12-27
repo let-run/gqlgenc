@@ -13,3 +13,7 @@ require (
 	golang.org/x/xerrors v0.0.0-20200804184101-5ec99f83aff1 // indirect
 	gopkg.in/yaml.v2 v2.3.0
 )
+
+replace (
+	github.com/99designs/gqlgen => github.com/Phuture-Finance/gqlgen v0.14.1-0.20211227170257-06a5a5623a0f
+)
