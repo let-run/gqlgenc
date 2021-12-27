@@ -6,7 +6,7 @@ import (
 	"context"
 	"net/http"
 
-	"github.com/Yamashou/gqlgenc/clientv2"
+	"github.com/let-run/gqlgenc/clientv2"
 )
 
 type Client struct {

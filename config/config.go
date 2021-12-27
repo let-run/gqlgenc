@@ -11,8 +11,8 @@ import (
 	"strings"
 
 	"github.com/99designs/gqlgen/codegen/config"
-	"github.com/Yamashou/gqlgenc/client"
-	"github.com/Yamashou/gqlgenc/introspection"
+	"github.com/let-run/gqlgenc/client"
+	"github.com/let-run/gqlgenc/introspection"
 	"github.com/vektah/gqlparser/v2"
 	"github.com/vektah/gqlparser/v2/ast"
 	"github.com/vektah/gqlparser/v2/validator"
@@ -200,7 +200,7 @@ func LoadConfig(filename string) (*Config, error) {
 		Model:  cfg.Model,
 		Models: models,
 		// TODO: gqlgen must be set exec but client not used
-		Exec:       config.PackageConfig{Filename: "generated.go"},
+		Exec:       config.ExecConfig{Filename: "generated.go"},
 		Directives: map[string]config.DirectiveConfig{},
 		Sources:    sources,
 	}
