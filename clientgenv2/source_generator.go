@@ -102,8 +102,9 @@ func (r *SourceGenerator) NewResponseFieldsByDefinition(definition *ast.Definiti
 			continue
 		}
 
+		_, ok := r.cfg.Models[field.Type.Name()]
 		var typ types.Type
-		if field.Type.Name() == "Query" || field.Type.Name() == "Mutation" {
+		if field.Type.Name() == "Query" || field.Type.Name() == "Mutation" || !ok {
 			var baseType types.Type
 			baseType, err := r.binder.FindType(r.client.Pkg().Path(), field.Type.Name())
 			if err != nil {

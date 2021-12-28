@@ -91,12 +91,14 @@ func (r *SourceGenerator) NewResponseFields(selectionSet ast.SelectionSet) Respo
 func (r *SourceGenerator) NewResponseFieldsByDefinition(definition *ast.Definition) (ResponseFieldList, error) {
 	fields := make(ResponseFieldList, 0, len(definition.Fields))
 	for _, field := range definition.Fields {
+		fmt.Println("***", field.Type.Name(), field.Type.NamedType)
 		if field.Type.Name() == "__Schema" || field.Type.Name() == "__Type" {
 			continue
 		}
 
+		_, ok := r.cfg.Models[field.Type.Name()]
 		var typ types.Type
-		if field.Type.Name() == "Query" || field.Type.Name() == "Mutation" {
+		if field.Type.Name() == "Query" || field.Type.Name() == "Mutation" || !ok {
 			var baseType types.Type
 			baseType, err := r.binder.FindType(r.client.Pkg().Path(), field.Type.Name())
 			if err != nil {
@@ -221,6 +223,7 @@ func (r *SourceGenerator) OperationArguments(variableDefinitions ast.VariableDef
 
 // Typeの引数に渡すtypeNameは解析した結果からselectionなどから求めた型の名前を渡さなければいけない
 func (r *SourceGenerator) Type(typeName string) types.Type {
+
 	goType, err := r.binder.FindTypeFromName(r.cfg.Models[typeName].Model[0])
 	if err != nil {
 		// 実装として正しいtypeNameを渡していれば必ず見つかるはずなのでpanic
